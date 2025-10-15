@@ -10,7 +10,7 @@ export function MainNavbar() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <nav className="supports-[backdrop-filter]:bg-background/30 bg-background/95 sticky top-0 z-50 w-full border-b px-4 backdrop-blur">
+    <nav className="supports-[backdrop-filter]:bg-background/30 bg-background/95 sticky top-0 z-50 w-full border-b px-4 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between">
         <div className="flex items-center space-x-4 lg:space-x-0">
           <MobileSidebar />

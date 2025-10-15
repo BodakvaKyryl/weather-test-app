@@ -2,6 +2,7 @@
 
 import { WeatherData } from "@/api/types";
 import CurrentWeather from "@/components/current-weather";
+import HourlyTemperature from "@/components/hourly-temperature";
 import LoadingSkeleton from "@/components/loading-skeleton";
 import { LocationStatusMessage } from "@/components/location-status-message";
 import { StatusMessage } from "@/components/status-message";
@@ -116,11 +117,12 @@ export default function WeatherDashboard() {
         </Button>
       </div>
       <div className="grid gap-6">
-        <div>
+        <div className="flex flex-col gap-4 lg:flex-row">
           <CurrentWeather
             data={weatherData as WeatherData}
             locationName={locationName}
           />
+          <HourlyTemperature data={forecastData} />
         </div>
       </div>
     </div>
