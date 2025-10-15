@@ -1,5 +1,7 @@
-// "use client";
+"use client";
 
+import { WeatherData } from "@/api/types";
+import CurrentWeather from "@/components/current-weather";
 import LoadingSkeleton from "@/components/loading-skeleton";
 import { LocationStatusMessage } from "@/components/location-status-message";
 import { StatusMessage } from "@/components/status-message";
@@ -113,8 +115,14 @@ export default function WeatherDashboard() {
           />
         </Button>
       </div>
-      <p>Current Temperature: {weatherData.main.temp}°C</p>
-      <p>Forecast: {forecastData.list[0].main.temp}°C</p>
+      <div className="grid gap-6">
+        <div>
+          <CurrentWeather
+            data={weatherData as WeatherData}
+            locationName={locationName}
+          />
+        </div>
+      </div>
     </div>
   );
 }
