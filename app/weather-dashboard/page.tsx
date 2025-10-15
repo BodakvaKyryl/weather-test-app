@@ -106,7 +106,7 @@ export default function WeatherDashboard() {
           My Location {locationName?.name && `- ${locationName.name}`}
         </h1>
         <Button
-          className=""
+          className="shadow-sm"
           variant={"outline"}
           size={"icon"}
           onClick={handleRefresh}

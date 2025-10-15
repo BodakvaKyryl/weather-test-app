@@ -29,15 +29,17 @@ export default function Layout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}>
         <div className="from-background to-muted bg-gradient-to-br">
-          <MainNavbar />
-          <main className="container mx-auto min-h-screen px-4 py-8">
-            <Providers>{children}</Providers>
-          </main>
-          <footer className="supports-[backdrop-filter]:bg-background/30 border-t py-5 backdrop-blur">
-            <div className="container mx-auto px-4 text-center text-neutral-500">
-              <p>Made by KyrylB</p>
-            </div>
-          </footer>
+          <Providers>
+            <MainNavbar />
+            <main className="container mx-auto min-h-screen px-4 py-8">
+              {children}
+            </main>
+            <footer className="supports-[backdrop-filter]:bg-background/30 border-t py-5 backdrop-blur">
+              <div className="container mx-auto px-4 text-center text-neutral-500">
+                <p>Made by KyrylB</p>
+              </div>
+            </footer>
+          </Providers>
         </div>
       </body>
     </html>
