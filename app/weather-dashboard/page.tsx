@@ -1,7 +1,120 @@
+// "use client";
+
+import LoadingSkeleton from "@/components/loading-skeleton";
+import { LocationStatusMessage } from "@/components/location-status-message";
+import { StatusMessage } from "@/components/status-message";
+import { Button } from "@/components/ui/button";
+import useGeolocation from "@/hooks/use-geolocation";
+import {
+  useForecastQuery,
+  useReverseGeocodeQuery,
+  useWeatherQuery,
+} from "@/hooks/use-weather";
+import { AlertCircle, RefreshCw } from "lucide-react";
+
 export default function WeatherDashboard() {
+  const {
+    coordinates,
+    error: locationError,
+    getLocation,
+    isLoading: locationLoading,
+  } = useGeolocation();
+
+  const weatherQuery = useWeatherQuery(coordinates);
+  const forecastQuery = useForecastQuery(coordinates);
+  const locationQuery = useReverseGeocodeQuery(coordinates);
+
+  const handleRefresh = () => {
+    getLocation();
+
+    if (coordinates) {
+      weatherQuery.refetch();
+      forecastQuery.refetch();
+      locationQuery.refetch();
+    }
+  };
+
+  const locationStatus = LocationStatusMessage({
+    isLoading: locationLoading,
+    error: locationError,
+    coordinates: coordinates,
+    getLocation: getLocation,
+  });
+
+  if (locationStatus) {
+    return locationStatus;
+  }
+
+  const {
+    data: weatherData,
+    error: weatherError,
+    isLoading: weatherIsLoading,
+    isFetching: weatherIsFetching,
+  } = weatherQuery;
+  const {
+    data: forecastData,
+    error: forecastError,
+    isLoading: forecastIsLoading,
+    isFetching: forecastIsFetching,
+  } = forecastQuery;
+  const {
+    data: locationData,
+    error: locationQueryError,
+    isLoading: locationQueryIsLoading,
+    isFetching: locationQueryIsFetching,
+  } = locationQuery;
+
+  const locationName = locationData?.[0];
+
+  if (weatherError || forecastError || locationQueryError) {
+    return (
+      <StatusMessage
+        icon={AlertCircle}
+        title="Error"
+        description="Failed to fetch weather data. Please try again."
+        buttonText="Retry"
+        onButtonClick={handleRefresh}
+      />
+    );
+  }
+
+  if (weatherIsLoading || forecastIsLoading || locationQueryIsLoading) {
+    return <LoadingSkeleton />;
+  }
+
+  if (!weatherData || !forecastData) {
+    return (
+      <StatusMessage
+        icon={AlertCircle}
+        title="Error"
+        description="Weather data not available. Please try again."
+        buttonText="Retry"
+        onButtonClick={handleRefresh}
+      />
+    );
+  }
+
   return (
-    <div>
-      <div>Weather</div>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-bold tracking-tight">
+          My Location {locationName?.name && `- ${locationName.name}`}
+        </h1>
+        <Button
+          className=""
+          variant={"outline"}
+          size={"icon"}
+          onClick={handleRefresh}
+          disabled={
+            weatherIsFetching || forecastIsFetching || locationQueryIsFetching
+          }>
+          <RefreshCw
+            className={`h-4 w-4 ${weatherIsFetching || forecastIsFetching || locationQueryIsFetching ? "animate-spin" : ""}`}
+          />
+        </Button>
+      </div>
+      <p>Current Temperature: {weatherData.main.temp}°C</p>
+      <p>Forecast: {forecastData.list[0].main.temp}°C</p>
     </div>
   );
 }
