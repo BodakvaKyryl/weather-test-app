@@ -1,6 +1,6 @@
 "use client";
 
-import { WeatherData } from "@/api/types";
+import { ForecastData, WeatherData } from "@/api/types";
 import CurrentWeather from "@/components/current-weather";
 import HourlyTemperature from "@/components/hourly-temperature";
 import LoadingSkeleton from "@/components/loading-skeleton";
@@ -8,6 +8,7 @@ import { LocationStatusMessage } from "@/components/location-status-message";
 import { StatusMessage } from "@/components/status-message";
 import { Button } from "@/components/ui/button";
 import WeatherDetails from "@/components/weather-details";
+import WeatherForecast from "@/components/weather-forecast";
 import useGeolocation from "@/hooks/use-geolocation";
 import {
   useForecastQuery,
@@ -125,8 +126,9 @@ export default function WeatherDashboard() {
           />
           <HourlyTemperature data={forecastData} />
         </div>
-        <div className="grid gap-6">
+        <div className="grid items-start gap-6 lg:grid-cols-2">
           <WeatherDetails data={weatherData} />
+          <WeatherForecast data={forecastQuery.data as ForecastData} />
         </div>
       </div>
     </div>

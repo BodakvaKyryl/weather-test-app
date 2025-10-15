@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Card, CardContent, CardHeader } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 interface HourlyTemperatureProps {
   data: ForecastData;
@@ -23,7 +23,9 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
 
   return (
     <Card className="flex-1">
-      <CardHeader>Today&apos;s Temperature</CardHeader>
+      <CardHeader>
+        <CardTitle>Today&apos;s Temperature</CardTitle>
+      </CardHeader>
       <CardContent>
         <div className="h-[200px] w-full">
           <ResponsiveContainer width={"100%"} height={"100%"}>
