@@ -7,6 +7,7 @@ import LoadingSkeleton from "@/components/loading-skeleton";
 import { LocationStatusMessage } from "@/components/location-status-message";
 import { StatusMessage } from "@/components/status-message";
 import { Button } from "@/components/ui/button";
+import WeatherDetails from "@/components/weather-details";
 import useGeolocation from "@/hooks/use-geolocation";
 import {
   useForecastQuery,
@@ -123,6 +124,9 @@ export default function WeatherDashboard() {
             locationName={locationName}
           />
           <HourlyTemperature data={forecastData} />
+        </div>
+        <div className="grid gap-6">
+          <WeatherDetails data={weatherData} />
         </div>
       </div>
     </div>

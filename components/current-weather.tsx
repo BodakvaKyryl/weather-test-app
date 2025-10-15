@@ -51,7 +51,7 @@ const CurrentWeather = ({ data, locationName }: CurrentWeatherProps) => {
                     <ArrowDown className="h-3 w-3" />
                     {formatTemp(temp_min)}
                   </span>
-                  <span className="flex items-center gap-1 text-red-500">
+                  <span className="flex items-center gap-1 text-orange-500">
                     <ArrowUp className="h-3 w-3" />
                     {formatTemp(temp_max)}
                   </span>
