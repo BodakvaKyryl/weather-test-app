@@ -1,8 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Weather Test App
+
+A modern, feature-rich weather application built with Next.js 13+ and React, providing real-time weather information with a beautiful and responsive user interface.
+
+## Features
+
+- **Real-time Weather Data**: Get current weather conditions including temperature, humidity, wind speed, and more
+- **Location-based Weather**: Automatic weather detection based on user's location
+- **City Search**: Search for weather information in any city worldwide
+- **Favorites System**: Save and manage your favorite cities for quick access
+- **Search History**: Keep track of your recent weather searches
+- **5-Day Forecast**: View detailed weather forecasts for the next 5 days
+- **Hourly Temperature**: Track temperature changes throughout the day
+- **Detailed Weather Information**: Access comprehensive weather data including:
+  - Temperature (current, feels like, min/max)
+  - Humidity levels
+  - Wind speed and direction
+  - Sunrise and sunset times
+  - Pressure
+  - Visibility
+  - Cloud coverage
+  - Rain volume (when applicable)
+
+## Technical Features
+
+- Built with Next.js 13+ and React 19
+- TypeScript for type safety
+- TailwindCSS for styling
+- Theme toggling (Light/Dark mode)
+- Responsive design
+- API integration with OpenWeatherMap
+- Client-side caching with TanStack Query
+- Modern UI components with shadcn/ui
+- Beautiful data visualization with Recharts
+
+## Screenshots
+
+[Note: Add screenshots here showing:]
+
+1. Main weather dashboard with current weather
+2. City search functionality
+3. 5-day forecast view
+4. Favorites list
+5. Theme toggle (light/dark mode)
+6. Hourly temperature graph
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/weather-test-app.git
+```
+
+1. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+1. Create a `.env.local` file and add your OpenWeatherMap API key:
+
+```env
+NEXT_PUBLIC_API_KEY=your_api_key_here
+```
+
+1. Run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +76,12 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The following environment variables are required:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `NEXT_PUBLIC_API_KEY`: Your OpenWeatherMap API key
