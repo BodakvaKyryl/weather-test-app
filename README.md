@@ -21,67 +21,28 @@ A modern, feature-rich weather application built with Next.js 13+ and React, pro
   - Cloud coverage
   - Rain volume (when applicable)
 
-## Technical Features
-
-- Built with Next.js 13+ and React 19
-- TypeScript for type safety
-- TailwindCSS for styling
-- Theme toggling (Light/Dark mode)
-- Responsive design
-- API integration with OpenWeatherMap
-- Client-side caching with TanStack Query
-- Modern UI components with shadcn/ui
-- Beautiful data visualization with Recharts
-
 ## Screenshots
 
-[Note: Add screenshots here showing:]
+### Dark Theme
 
-1. Main weather dashboard with current weather
-2. City search functionality
-3. 5-day forecast view
-4. Favorites list
-5. Theme toggle (light/dark mode)
-6. Hourly temperature graph
+![Dark Theme Dashboard](./screenshots/main-dark.png)
+_Main dashboard showing current weather, favorites list, hourly temperature graph, and 5-day forecast in dark theme_
 
-## Getting Started
+### Light Theme
 
-1. Clone the repository:
+![Light Theme Dashboard](./screenshots/main-light.png)
+_Same dashboard components shown in light theme, demonstrating the theme toggle functionality_
 
-```bash
-git clone https://github.com/yourusername/weather-test-app.git
-```
+### Search Functionality
 
-1. Install dependencies:
+![Search Interface](./screenshots/search.png)
+_City search interface showing suggestions, favorites, and recent searches_
 
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-```
+The application features a clean, modern interface with:
 
-1. Create a `.env.local` file and add your OpenWeatherMap API key:
-
-```env
-NEXT_PUBLIC_API_KEY=your_api_key_here
-```
-
-1. Run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-1. Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
-
-## Environment Variables
-
-The following environment variables are required:
-
-- `NEXT_PUBLIC_API_KEY`: Your OpenWeatherMap API key
+- Comprehensive weather information display
+- Interactive temperature graphs
+- Scrollable favorites list
+- Theme switching between light and dark modes
+- Intuitive city search with suggestions
+- Detailed 5-day weather forecast
