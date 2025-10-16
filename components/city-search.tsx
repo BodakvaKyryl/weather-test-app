@@ -1,9 +1,10 @@
 "use client";
 
+import { useFavorite } from "@/hooks/use-favorite";
 import { useSearchHistory } from "@/hooks/use-search-history";
 import { useLocationSearch } from "@/hooks/use-weather";
 import { format } from "date-fns";
-import { Clock, Loader2, Search, XCircle } from "lucide-react";
+import { Clock, Loader2, Search, Star, XCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "./ui/button";
@@ -22,6 +23,7 @@ const CitySearch = () => {
   const [query, setQuery] = useState("");
   const router = useRouter();
 
+  const { favorites } = useFavorite();
   const { data: locations, isLoading } = useLocationSearch(query);
   const { history, clearHistory, addToHistory } = useSearchHistory();
 
@@ -59,14 +61,35 @@ const CitySearch = () => {
           {query.length > 2 && !isLoading && (
             <CommandEmpty>No results found.</CommandEmpty>
           )}
-          <CommandGroup heading="Favorites">
-            <CommandItem></CommandItem>
-          </CommandGroup>
+
+          {favorites.length > 0 && (
+            <CommandGroup heading="Favorites">
+              {favorites.map((location) => {
+                return (
+                  <CommandItem
+                    key={location.id}
+                    value={`${location.lat}|${location.lon}|${location.name}|${location.country}`}
+                    onSelect={handleSelect}>
+                    <Star className="mr-2 h-4 w-4 text-yellow-500" />
+                    <span>{location.name}</span>
+                    {location.state && (
+                      <span className="text-muted-foreground text-sm">
+                        , {location.state}
+                      </span>
+                    )}
+                    <span className="text-muted-foreground text-sm">
+                      , {location.country}
+                    </span>
+                  </CommandItem>
+                );
+              })}
+            </CommandGroup>
+          )}
 
           {history.length > 0 && (
             <>
-              <CommandSeparator className="" />
-              <CommandGroup className="">
+              <CommandSeparator />
+              <CommandGroup>
                 <div className="my-2 flex items-center justify-between px-2">
                   <p>Recent Searches</p>
                   <Button

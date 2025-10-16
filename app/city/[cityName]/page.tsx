@@ -2,77 +2,44 @@
 
 import { ForecastData, WeatherData } from "@/api/types";
 import CurrentWeather from "@/components/current-weather";
-import { FavoriteCities } from "@/components/favorite-cities";
+import FavoriteButton from "@/components/favorite-button";
 import HourlyTemperature from "@/components/hourly-temperature";
 import LoadingSkeleton from "@/components/loading-skeleton";
-import { LocationStatusMessage } from "@/components/location-status-message";
 import { StatusMessage } from "@/components/status-message";
-import { Button } from "@/components/ui/button";
 import WeatherDetails from "@/components/weather-details";
 import WeatherForecast from "@/components/weather-forecast";
-import useGeolocation from "@/hooks/use-geolocation";
-import {
-  useForecastQuery,
-  useReverseGeocodeQuery,
-  useWeatherQuery,
-} from "@/hooks/use-weather";
-import { AlertCircle, RefreshCw } from "lucide-react";
+import { useForecastQuery, useWeatherQuery } from "@/hooks/use-weather";
+import { AlertCircle } from "lucide-react";
+import { useParams, useSearchParams } from "next/navigation";
 
-export default function WeatherDashboard() {
-  const {
-    coordinates,
-    error: locationError,
-    getLocation,
-    isLoading: locationLoading,
-  } = useGeolocation();
-
+const CityPage = () => {
+  const searchParams = useSearchParams();
+  const params = useParams();
+  const lat = parseFloat(searchParams.get("lat") || "0");
+  const lon = parseFloat(searchParams.get("lon") || "0");
+  const coordinates = { lat, lon };
   const weatherQuery = useWeatherQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
-  const locationQuery = useReverseGeocodeQuery(coordinates);
 
   const handleRefresh = () => {
-    getLocation();
-
     if (coordinates) {
       weatherQuery.refetch();
       forecastQuery.refetch();
-      locationQuery.refetch();
     }
   };
-
-  const locationStatus = LocationStatusMessage({
-    isLoading: locationLoading,
-    error: locationError,
-    coordinates: coordinates,
-    getLocation: getLocation,
-  });
-
-  if (locationStatus) {
-    return locationStatus;
-  }
 
   const {
     data: weatherData,
     error: weatherError,
     isLoading: weatherIsLoading,
-    isFetching: weatherIsFetching,
   } = weatherQuery;
   const {
     data: forecastData,
     error: forecastError,
     isLoading: forecastIsLoading,
-    isFetching: forecastIsFetching,
   } = forecastQuery;
-  const {
-    data: locationData,
-    error: locationQueryError,
-    isLoading: locationQueryIsLoading,
-    isFetching: locationQueryIsFetching,
-  } = locationQuery;
 
-  const locationName = locationData?.[0];
-
-  if (weatherError || forecastError || locationQueryError) {
+  if (weatherError || forecastError) {
     return (
       <StatusMessage
         icon={AlertCircle}
@@ -84,7 +51,7 @@ export default function WeatherDashboard() {
     );
   }
 
-  if (weatherIsLoading || forecastIsLoading || locationQueryIsLoading) {
+  if (weatherIsLoading || forecastIsLoading || !params.cityName) {
     return <LoadingSkeleton />;
   }
 
@@ -102,30 +69,24 @@ export default function WeatherDashboard() {
 
   return (
     <div className="space-y-4">
-      <FavoriteCities />
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">
-          My Location {locationName?.name && `- ${locationName.name}`}
+          {params.cityName}, {weatherQuery.data?.sys.country}
         </h1>
-        <Button
-          className="shadow-sm"
-          variant={"outline"}
-          size={"icon"}
-          onClick={handleRefresh}
-          disabled={
-            weatherIsFetching || forecastIsFetching || locationQueryIsFetching
-          }>
-          <RefreshCw
-            className={`h-4 w-4 ${weatherIsFetching || forecastIsFetching || locationQueryIsFetching ? "animate-spin" : ""}`}
+        <div>
+          <FavoriteButton
+            data={{
+              ...(weatherQuery.data as WeatherData),
+              name: Array.isArray(params.cityName)
+                ? params.cityName[0]
+                : params.cityName,
+            }}
           />
-        </Button>
+        </div>
       </div>
       <div className="grid gap-6">
         <div className="flex flex-col gap-6 lg:flex-row">
-          <CurrentWeather
-            data={weatherData as WeatherData}
-            locationName={locationName}
-          />
+          <CurrentWeather data={weatherData as WeatherData} />
           <HourlyTemperature data={forecastData} />
         </div>
         <div className="grid items-start gap-6 lg:grid-cols-2">
@@ -135,4 +96,6 @@ export default function WeatherDashboard() {
       </div>
     </div>
   );
-}
+};
+
+export default CityPage;
