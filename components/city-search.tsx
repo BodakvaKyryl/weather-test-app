@@ -45,7 +45,7 @@ const CitySearch = () => {
   return (
     <>
       <Button
-        className="text-accent-foreground relative w-full justify-start text-sm sm:pr-12 md:w-40 lg:w-64"
+        className="text-accent-foreground relative min-w-0 flex-shrink justify-start text-sm sm:pr-12 md:w-40 lg:w-64"
         variant={"outline"}
         onClick={() => setOpen(true)}>
         <Search className="mr-2 h-4 w-4" />
@@ -161,5 +161,4 @@ const CitySearch = () => {
     </>
   );
 };
-
 export default CitySearch;

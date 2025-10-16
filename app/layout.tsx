@@ -24,6 +24,8 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const currentYear = new Date().getFullYear();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -34,9 +36,12 @@ export default function Layout({
             <main className="container mx-auto min-h-screen px-4 py-8">
               {children}
             </main>
-            <footer className="supports-[backdrop-filter]:bg-background/30 border-t py-5 backdrop-blur">
-              <div className="container mx-auto px-4 text-center text-neutral-500">
-                <p>Made by KyrylB</p>
+            <footer className="supports-[backdrop-filter]:bg-background/30 border-t py-2 backdrop-blur">
+              <div className="container mx-auto flex h-16 items-center justify-center px-4">
+                <p className="text-muted-foreground text-center text-sm">
+                  © {currentYear} Made by{" "}
+                  <span className="text-foreground font-semibold">KyrylB</span>
+                </p>
               </div>
             </footer>
           </Providers>

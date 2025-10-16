@@ -1,37 +1,31 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { MoonIcon, SunIcon } from "lucide-react";
-import { useTheme } from "next-themes";
+import { CloudRain } from "lucide-react";
+import Link from "next/link";
 import CitySearch from "./city-search";
-import { MobileSidebar } from "./mobile-sidebar";
-import { Navigation } from "./navigation";
+import ThemeToggle from "./theme-toggle";
 
 export function MainNavbar() {
-  const { theme, setTheme } = useTheme();
-
   return (
-    <nav className="supports-[backdrop-filter]:bg-background/30 bg-background/95 sticky top-0 z-50 w-full border-b px-4 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center justify-between">
-        <div className="flex items-center space-x-4 lg:space-x-0">
-          <MobileSidebar />
-          <div className="mr-10 hidden flex-col lg:flex">
-            <h1 className="text-2xl font-semibold">Weather App</h1>
+    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/30 sticky top-0 z-50 w-full border-b py-2 backdrop-blur">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        <Link href={"/weather-dashboard"} className="group">
+          <div className="relative overflow-hidden rounded-lg border border-white/10 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 px-4 py-2 backdrop-blur-sm transition-all hover:border-white/20 hover:from-blue-500/20 hover:to-cyan-500/20">
+            <div className="flex items-center gap-2">
+              <CloudRain className="h-5 w-5 text-blue-500" />
+              <h1 className="text-lg font-bold">Weather App</h1>
+            </div>
+            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 blur-xl transition-opacity group-hover:opacity-20" />
           </div>
-        </div>
-        <Navigation className="hidden flex-row space-x-6 lg:flex" />
-        <div className="flex flex-1 items-center justify-end space-x-2">
-          <CitySearch />
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-            <SunIcon className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-            <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-            <span className="sr-only">Toggle theme</span>
-          </Button>
+        </Link>
+
+        <div className="flex items-center gap-4">
+          <div className="max-w-[200px] md:max-w-none">
+            <CitySearch />
+          </div>
+          <ThemeToggle />
         </div>
       </div>
-    </nav>
+    </header>
   );
 }
