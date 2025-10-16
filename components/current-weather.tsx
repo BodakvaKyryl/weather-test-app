@@ -28,12 +28,12 @@ const CurrentWeather = ({ data, locationName }: CurrentWeatherProps) => {
                   {locationName?.name}
                 </h2>
                 {locationName?.state && (
-                  <span className="text-muted-foreground">
+                  <span className="text-muted-foreground text-2xl font-bold tracking-tight">
                     , {locationName.state}
                   </span>
                 )}
               </div>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-muted-foreground text-sm font-bold tracking-tight">
                 {locationName?.country}
               </p>
             </div>

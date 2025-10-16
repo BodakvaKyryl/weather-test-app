@@ -1,3 +1,5 @@
+"use client";
+
 import { ForecastData } from "@/api/types";
 import { format } from "date-fns";
 import {

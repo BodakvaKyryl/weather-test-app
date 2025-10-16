@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import CitySearch from "./city-search";
 import { MobileSidebar } from "./mobile-sidebar";
 import { Navigation } from "./navigation";
 
@@ -20,9 +21,9 @@ export function MainNavbar() {
         </div>
         <Navigation className="hidden flex-row space-x-6 lg:flex" />
         <div className="flex flex-1 items-center justify-end space-x-2">
+          <CitySearch />
           <Button
-            className="border-1"
-            variant="ghost"
+            variant="outline"
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
             <SunIcon className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
