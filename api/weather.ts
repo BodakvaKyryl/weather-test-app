@@ -7,65 +7,66 @@ import {
 } from "./types";
 
 class WeatherAPI {
-  private createURL(endpoint: string, params: Record<string, string | number>) {
-    const apiKey = API_CONFIG.API_KEY || "";
-    const searchParams = new URLSearchParams({
-      appid: apiKey,
-      ...params,
+  private async proxyFetch<T>(
+    params: Record<string, string | number>
+  ): Promise<T> {
+    const searchParams = new URLSearchParams();
+    Object.entries(params).forEach(([k, v]) => {
+      searchParams.set(k, String(v));
     });
-    return `${endpoint}?${searchParams.toString()}`;
-  }
 
-  private async fetchData<T>(url: string): Promise<T> {
+    const url = `/api/weather?${searchParams.toString()}`;
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`Weather API Error: ${response.statusText}`);
+      const text = await response.text();
+      let msg = response.statusText || "Unknown error";
+      try {
+        const parsed = JSON.parse(text);
+        if (parsed && parsed.message) msg = parsed.message;
+      } catch {}
+      throw new Error(`Weather API Error: ${msg}`);
     }
 
-    return response.json();
+    return response.json() as Promise<T>;
   }
 
   async getCurrentWether({ lat, lon }: Coordinates): Promise<WeatherData> {
-    const url = this.createURL(`${API_CONFIG.BASE_URL}/weather`, {
+    return this.proxyFetch<WeatherData>({
+      type: "current",
       lat: lat.toString(),
       lon: lon.toString(),
       units: API_CONFIG.DEFAULT_PARAMS.units,
     });
-
-    return this.fetchData<WeatherData>(url);
   }
 
   async getForecast({ lat, lon }: Coordinates): Promise<ForecastData> {
-    const url = this.createURL(`${API_CONFIG.BASE_URL}/forecast`, {
+    return this.proxyFetch<ForecastData>({
+      type: "forecast",
       lat: lat.toString(),
       lon: lon.toString(),
       units: API_CONFIG.DEFAULT_PARAMS.units,
     });
-
-    return this.fetchData<ForecastData>(url);
   }
 
   async reverseGeocode({
     lat,
     lon,
   }: Coordinates): Promise<GeocodingResponse[]> {
-    const url = this.createURL(`${API_CONFIG.GEO}/reverse`, {
+    return this.proxyFetch<GeocodingResponse[]>({
+      type: "reverse",
       lat: lat.toString(),
       lon: lon.toString(),
       limit: 1,
     });
-
-    return this.fetchData<GeocodingResponse[]>(url);
   }
 
   async searchLocations(query: string): Promise<GeocodingResponse[]> {
-    const url = this.createURL(`${API_CONFIG.GEO}/direct`, {
+    return this.proxyFetch<GeocodingResponse[]>({
+      type: "search",
       q: query,
       limit: 5,
     });
-
-    return this.fetchData<GeocodingResponse[]>(url);
   }
 }
 

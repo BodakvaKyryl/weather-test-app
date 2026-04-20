@@ -30,13 +30,13 @@ export default function Layout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}>
-        <div className="from-background to-muted bg-gradient-to-br">
+        <div className="from-background to-muted bg-linear-to-br">
           <Providers>
             <MainNavbar />
             <main className="container mx-auto min-h-screen px-4 py-8">
               {children}
             </main>
-            <footer className="supports-[backdrop-filter]:bg-background/30 border-t py-2 backdrop-blur">
+            <footer className="supports-backdrop-filter:bg-background/30 border-t py-2 backdrop-blur">
               <div className="container mx-auto flex h-16 items-center justify-center px-4">
                 <p className="text-muted-foreground text-center text-sm">
                   © {currentYear} Made by{" "}

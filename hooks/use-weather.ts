@@ -15,6 +15,8 @@ export function useWeatherQuery(coordinates: Coordinates | null) {
     queryFn: () =>
       coordinates ? weatherAPI.getCurrentWether(coordinates) : null,
     enabled: !!coordinates,
+    staleTime: 1000 * 60 * 10,
+    refetchOnWindowFocus: false,
   });
 }
 
@@ -23,6 +25,8 @@ export function useForecastQuery(coordinates: Coordinates | null) {
     queryKey: WEATHER_KEYS.forecast(coordinates ?? { lat: 0, lon: 0 }),
     queryFn: () => (coordinates ? weatherAPI.getForecast(coordinates) : null),
     enabled: !!coordinates,
+    staleTime: 1000 * 60 * 10,
+    refetchOnWindowFocus: false,
   });
 }
 
@@ -32,6 +36,8 @@ export function useReverseGeocodeQuery(coordinates: Coordinates | null) {
     queryFn: () =>
       coordinates ? weatherAPI.reverseGeocode(coordinates) : null,
     enabled: !!coordinates,
+    staleTime: 1000 * 60 * 10,
+    refetchOnWindowFocus: false,
   });
 }
 

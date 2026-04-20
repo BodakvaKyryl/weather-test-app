@@ -15,6 +15,10 @@ import { useParams, useSearchParams } from "next/navigation";
 const CityPage = () => {
   const searchParams = useSearchParams();
   const params = useParams();
+  const rawCityName = Array.isArray(params.cityName)
+    ? params.cityName[0]
+    : params.cityName;
+  const cityName = rawCityName ? decodeURIComponent(rawCityName) : "";
   const lat = parseFloat(searchParams.get("lat") || "0");
   const lon = parseFloat(searchParams.get("lon") || "0");
   const coordinates = { lat, lon };
@@ -71,15 +75,13 @@ const CityPage = () => {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">
-          {params.cityName}, {weatherQuery.data?.sys.country}
+          {cityName}, {weatherQuery.data?.sys.country}
         </h1>
         <div>
           <FavoriteButton
             data={{
               ...(weatherQuery.data as WeatherData),
-              name: Array.isArray(params.cityName)
-                ? params.cityName[0]
-                : params.cityName,
+              name: cityName,
             }}
           />
         </div>
