@@ -1,4 +1,4 @@
-import { WeatherData } from "@/api/types";
+import { WeatherData } from "@/services/api/types";
 import { useFavorite } from "@/hooks/use-favorite";
 import { Star } from "lucide-react";
 import { toast } from "sonner";

@@ -1,4 +1,4 @@
-import { WeatherData } from "@/api/types";
+import { WeatherData } from "@/services/api/types";
 import { format } from "date-fns";
 import {
   Clock,

@@ -1,6 +1,6 @@
 "use client";
 
-import { ForecastData, WeatherData } from "@/api/types";
+import { ForecastData, WeatherData } from "@/services/api/types";
 import CurrentWeather from "@/components/current-weather";
 import { FavoriteCities } from "@/components/favorite-cities";
 import HourlyTemperature from "@/components/hourly-temperature";

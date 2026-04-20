@@ -1,6 +1,6 @@
 "use client";
 
-import { ForecastData } from "@/api/types";
+import { ForecastData } from "@/services/api/types";
 import { format } from "date-fns";
 import {
   Line,
@@ -52,7 +52,7 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     return (
-                      <div className="supports-[backdrop-filter]:bg-background/30 bg-background/95 rounded-lg border p-2 shadow-sm backdrop-blur-md">
+                      <div className="supports-backdrop-filter:bg-background/30 bg-background/95 rounded-lg border p-2 shadow-sm backdrop-blur-md">
                         <div className="grid grid-cols-2 gap-2">
                           <div className="flex flex-col items-center">
                             <span className="text-muted-foreground text-[0.70rem] uppercase">

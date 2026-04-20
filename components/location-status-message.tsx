@@ -1,6 +1,6 @@
 "use client";
 
-import { Coordinates } from "@/api/types";
+import { Coordinates } from "@/services/api/types";
 import { AlertCircle } from "lucide-react";
 import LoadingSkeleton from "./loading-skeleton";
 import { StatusMessage } from "./status-message";
